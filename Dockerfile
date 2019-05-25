@@ -1,31 +1,31 @@
-FROM openjdk:8u181-jdk-slim
+FROM openjdk:8u191-jdk-alpine
 
-ARG DIST=debian
-ARG AWS_CLI_VERSION=1.16.61
-ARG DOCKER_COMPOSE_VERSION=1.23.1
+ARG HOME_DIR=/home/daemon
 
-RUN apt-get update && apt-get install -y \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common \
-    gnupg2
+# Installing base utilities and applications
+RUN apk add --no-cache make git openssl ca-certificates shadow openssh jq docker libffi-dev openssl-dev gcc libc-dev
 
-RUN curl -fsSL https://download.docker.com/linux/${DIST}/gpg | apt-key add -
+# Installing Python 3
+RUN apk add --no-cache python3 python3-dev && \
+    python3 -m ensurepip && \
+    rm -r /usr/lib/python*/ensurepip && \
+    pip3 install --upgrade pip setuptools && \
+    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
+    if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
+    rm -r /root/.cache
 
-RUN add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/${DIST} \
-    $(lsb_release -cs) \
-    stable"
+# Install AWS CLI and Docker Compose
+RUN pip3 install awscli docker-compose --upgrade
 
-RUN apt-get update && apt-get install -y \
-    make \
-    net-tools \
-    docker-ce \
-    python-pip \
-&& rm -rf /var/lib/apt/lists/*
+# Setting user home directory
+RUN mkdir ${HOME_DIR}
 
-RUN curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-RUN chmod +x /usr/local/bin/docker-compose
+# Creating SSH directory
+RUN mkdir ${HOME_DIR}/.ssh
 
-RUN pip --no-cache-dir install awscli==${AWS_CLI_VERSION}
+# Configuring ownership on home directory
+RUN chown -R daemon:daemon ${HOME_DIR}
+RUN chmod -R 0751 ${HOME_DIR}
+RUN usermod --home ${HOME_DIR} daemon
+
+USER daemon
