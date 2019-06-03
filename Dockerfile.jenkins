@@ -1,6 +1,7 @@
 FROM openjdk:8u191-jdk-alpine
 
 ARG HOME_DIR=/home/daemon
+ARG UID=1000
 
 # Installing base utilities and applications
 RUN apk add --no-cache make git openssl ca-certificates shadow openssh jq docker libffi-dev openssl-dev gcc libc-dev libc6-compat snappy
@@ -27,6 +28,6 @@ RUN mkdir ${HOME_DIR}/.ssh
 # Configuring ownership on home directory
 RUN chown -R daemon:daemon ${HOME_DIR}
 RUN chmod -R 0751 ${HOME_DIR}
-RUN usermod --home ${HOME_DIR} daemon
+RUN usermod --home ${HOME_DIR} -u ${UID} daemon
 
 USER daemon

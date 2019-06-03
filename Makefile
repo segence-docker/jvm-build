@@ -9,6 +9,10 @@ all:
 build:
 	@docker build -t $(ORGANIZATION)/$(REPOSITORY):$(VERSION) .
 
+.PHONY: build-jenkins # Builds Docker image having the correct user set up for Jenkins CI
+build-jenkins:
+	@docker build -f Dockerfile.jenkins -t $(ORGANIZATION)/$(REPOSITORY):$(VERSION)-jenkins .
+
 .PHONY: push # Pushes Docker image
 push:
 	@docker push $(ORGANIZATION)/$(REPOSITORY):$(VERSION)
