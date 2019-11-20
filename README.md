@@ -10,6 +10,7 @@ It comes with:
 - Docker and Docker Compose
 - The [make](https://www.gnu.org/software/make/) utility
 - The [AWS CLI](https://docs.aws.amazon.com/cli/index.html#lang/en_us) utility
+- The [Pipenv](https://pipenv.kennethreitz.org) utility
 
 It can be used as a base build image in CI tools.
 
