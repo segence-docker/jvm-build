@@ -1,9 +1,9 @@
-FROM openjdk:8u191-jdk-alpine
+FROM openjdk:8u212-jdk-alpine
 
 ARG HOME_DIR=/home/daemon
 
 # Installing base utilities and applications
-RUN apk add --no-cache bash make git zip openssl ca-certificates shadow openssh \
+RUN apk add --no-cache bash make git git-lfs zip openssl ca-certificates shadow openssh \
                        jq docker libffi-dev openssl-dev gcc libc-dev protobuf gcompat snappy g++ snappy-dev
 
 # Installing Python 3
