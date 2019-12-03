@@ -29,4 +29,7 @@ RUN chown -R daemon:daemon ${HOME_DIR}
 RUN chmod -R 0751 ${HOME_DIR}
 RUN usermod --home ${HOME_DIR} daemon
 
+# Adding custom scripts
+COPY scripts/git_askpass.sh /usr/local/bin
+
 USER daemon
