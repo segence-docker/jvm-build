@@ -13,8 +13,9 @@ all:
 build:
 ifndef qualifier
 	docker build -t $(ORGANIZATION)/$(REPOSITORY):$(VERSION) .
-endif
+else
 	docker build -f Dockerfile.$(qualifier) -t $(ORGANIZATION)/$(REPOSITORY):$(VERSION)-$(qualifier) .
+endif
 
 .PHONY: push # Pushes Docker image
 push:
