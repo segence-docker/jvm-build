@@ -2,6 +2,10 @@ ORGANIZATION := segence
 REPOSITORY := $(shell basename -s .git `git config --get remote.origin.url`)
 VERSION := $(shell git tag --points-at HEAD)
 
+ifdef qualifier
+	VERSION := $(VERSION)-$(qualifier)
+endif
+
 FONT_ESC := $(shell printf '\033')
 FONT_BOLD := ${FONT_ESC}[1m
 FONT_NC := ${FONT_ESC}[0m # No colour
@@ -11,11 +15,7 @@ all:
 
 .PHONY: build # Builds Docker image
 build:
-ifndef qualifier
-	docker build -t $(ORGANIZATION)/$(REPOSITORY):$(VERSION) .
-else
-	docker build -f Dockerfile.$(qualifier) -t $(ORGANIZATION)/$(REPOSITORY):$(VERSION)-$(qualifier) .
-endif
+	@docker build -t $(ORGANIZATION)/$(REPOSITORY):$(VERSION) .
 
 .PHONY: push # Pushes Docker image
 push:
