@@ -11,8 +11,10 @@ It comes with:
 - [Git](https://git-scm.com) and [Git LFS](https://git-lfs.github.com)
 - [Docker](https://www.docker.com) and [Docker Compose](https://docs.docker.com/compose)
 - The [make](https://www.gnu.org/software/make/) utility
-- The [AWS CLI](https://docs.aws.amazon.com/cli/index.html#lang/en_us) utility
+- The [AWS CLI v2](https://docs.aws.amazon.com/cli/index.html#lang/en_us) utility
 - The [Pipenv](https://pipenv.kennethreitz.org) utility
+- The [Kubectl](https://kubernetes.io/docs/reference/kubectl/kubectl/) utility
+- The [Helm](https://helm.sh) utility
 - The [Snappy](https://google.github.io/snappy) compression library
 
 It can be used as a base build image in CI tools.
