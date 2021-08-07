@@ -19,7 +19,7 @@ It comes with:
 
 It can be used as a base build image in CI tools.
 
-There is also a Jenkinc CI compatible image available (with the tag having a `-jenkins` suffix) where the UID of the user `daemon` is set to `1000` to be compatible with the relevant [Jenkins Docker configuration](https://github.com/jenkinsci/docker/blob/master/Dockerfile#L7).
+There is also a Jenkinc CI compatible image available (with the tag having a `-jenkins` suffix) where the UID of the user `daemon` is set to `1000` to be compatible with the relevant [Jenkins Docker configuration](https://github.com/jenkinsci/docker/blob/master/11/debian/buster-slim/hotspot/Dockerfile#L27).
 
 # Using with HTTP Git credentials
 
